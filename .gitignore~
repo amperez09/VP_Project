@@ -5,9 +5,7 @@
 *.log
 *.pot
 *.pyc
-/mysite/__pycache__/
-/blog/__pycache__/
-/blog/migrations/__pycache__/
+__pycache__/
 local_settings.py
 db.sqlite3
 media
