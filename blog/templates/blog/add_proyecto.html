@@ -47,26 +47,31 @@
       <br>
       <div class="container">
           <h1>Agregar Proyecto</h1>
-          <form>
+          <form action="/add_proyecto/" method="POST"  id="submit" class="row">
+              {% csrf_token %}
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="inputEmail4">Codigo</label>
-                    <input type="text" class="form-control" id="code" placeholder="Juanito">
+                    <!--input type="text" class="form-control" id="code" placeholder="3BDH.BBV0100"-->
+                    {{form.codeProject}}
                   </div>
                   <div class="form-group col-md-6">
                     <label for="inputEmail4">Tipo</label>
-                    <input type="text" class="form-control" id="type" placeholder="MX|ES">
-                </div>
+                    <!--input type="text" class="form-control" id="type" placeholder="IN"-->
+                    {{form.typeProject}}
+                  </div>
                   <div class="form-group col-md-6">
                         <label for="inputEmail4">Nombre</label>
-                        <input type="text" class="form-control" id="name" placeholder="Pérez">
+                        <!--input type="text" class="form-control" id="name" placeholder="DAT: DCR DevOps MX"-->
+                        {{form.nameProject}}
                   </div>
                   <div class="form-group col-md-6">
                         <label for="inputEmail4">FTES</label>
-                        <input type="text" class="form-control" id="ftes" placeholder="Camacho">
-                  </div>a
+                        <!--input type="text" class="form-control" id="ftes" placeholder="Deployment"-->
+                        {{form.ftes}}
+                  </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="submit" class="btn btn-primary col-md-6" form="submit">Guardar</button>
               </form>
       </div>
 
