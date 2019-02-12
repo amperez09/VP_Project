@@ -55,7 +55,7 @@ def add_proyecto(request):
 		nameP = request.POST['nameProject']
 		ftesName = request.POST['ftes']
 
-		#ftes = Ftes.objects.filter(nombreFtes='QA').first()
+		ftesQuery = Ftes.objects.filter(nombreFtes=ftesName).first()
 		#ftes = list(Ftes.objects.all().values_list('nombreFtes',flat=True))
 		ftes = list(Ftes.objects.all())
 		#ftes=Ftes.objects.filter(nombreFtes='QA').first()
@@ -65,7 +65,7 @@ def add_proyecto(request):
 		#return HttpResponseRedirect('/thanks/')
 		form.fields['ftes'].choices = zip(ftes,ftes)
 
-		project = Proyecto(codigo=codeP,tipo=typeP,nombre=nameP,nombreFtes=ftesName,activo=active)
+		project = Proyecto(codigo=codeP,tipo=typeP,nombre=nameP,nombreFtes=ftesQuery,activo=active)
 		project.save()
 		print('POST SAVE')
 		print(request.POST)
