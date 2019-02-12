@@ -11,4 +11,5 @@ urlpatterns = [
     path('add_empleado/', views.add_empleado, name='add_empleado'),
     path('mod_empleado/',views.mod_empleado, name="mod_empleado"),
     path('reporte_general/',views.reporte_general, name="reporte_general"),
+    path('add_ftes/',views.add_ftes, name="add_ftes"),
 ]

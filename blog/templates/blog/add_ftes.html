@@ -49,61 +49,20 @@
       <br>
       <br>
       <div class="container">
-          <h1>Agregar Empleado</h1>
-          <form action="/add_empleado/" method="POST"  id="submit" class="row">
-            {% csrf_token %}
+          <h1>Agregar Ftes</h1>
+          <form action="/add_ftes/" method="POST"  id="submit" class="row">
+              {% csrf_token %}
                 <div class="form-row">
-                  <div class="form-group col-md-6">
-                    <label for="inputEmail4">Nombre</label>
-                    <!--input type="text" class="form-control" id="name" placeholder="Juanito"-->
-                    {{form.firstName}}
-
+                    <div class="form-group col-md-12">
+                        <label for="inputEmail4">Ftes</label>
+                        {{form.ftes}}
                   </div>
-                  <div class="form-group col-md-6">
-                        <label for="inputEmail4">Apellido Paterno</label>
-                        <!--input type="text" class="form-control" id="ap1" placeholder="Pérez"-->
-                        {{form.lastName_1}}
+                  <br>
+                  <div class="form-group col-md-12">
+                        <button type="submit" class="btn btn-primary" form="submit">Guardar</button>
                   </div>
-                  <div class="form-group col-md-6">
-                        <label for="inputEmail4">Apellido Materno</label>
-                        <!--input type="text" class="form-control" id="ap2" placeholder="Camacho"-->
-                        {{form.lastName_2}}
-                  </div>
-                  <div class="form-group col-md-6">
-                    <div class="dropdown">
-                        <label for="inputEmail4">País</label>
-                        <!--input type="text" class="form-control" id="pais" placeholder="MX|ES"-->
-                        {{form.country}}
-                      </div>
-                  </div>
-                  <div class="form-group col-md-6">
-                        <label for="inputEmail4">Email</label>
-                        <!--input type="email" class="form-control" id="email" placeholder="juanito@datiobd.com"-->
-                        {{form.email}}
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputPassword4">Área</label>
-                    <!--input type="text" class="form-control" id="area" placeholder="Ingesta"-->
-                    {{form.role}}
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputEmail4">Porcentaje</label>
-                    <!--input type="text" class="form-control" id="Porcentaje" placeholder="0.4"-->
-                    {{form.percentage}}
-                  </div>
-                    <div class="form-group col-md-6">
-                    <label for="inputEmail4">Proyecto</label>
-                    <!--button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      -Seleccionar Proyecto-
-                    </button-->
-                    {{form.project}}
-                    <!--div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="#">Proyecto1</a>
-                    </div-->
-                  </div>                  
-                </div>
-                <button type="submit" class="btn btn-primary" id="submit-button" form="submit">Guardar</button>
-              </form>
+              </div>
+        </form>
       </div>
 
     <!-- Optional JavaScript -->

@@ -29,6 +29,9 @@
             <li class="nav-item active">
                     <a class="nav-link" href="/proyecto/">Proyectos <span class="sr-only">(current)</span></a>
             </li>
+            <li class="nav-item active">
+                    <a class="nav-link" href="/add_ftes/">Ftes <span class="sr-only">(current)</span></a>
+            </li>
            
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -66,11 +69,12 @@
                         {{form.nameProject}}
                   </div>
                   <div class="form-group col-md-6">
-                        <label for="inputEmail4">FTES</label>
-                        <!--input type="text" class="form-control" id="ftes" placeholder="Deployment"-->
-                        {{form.ftes}}
+                    <div class="dropdown">
+                        <label for="inputEmail4">Ftes</label>
+                        <!--input type="text" class="form-control" id="pais" placeholder="MX|ES"-->
+                        {{form.ftes}}                        
+                      </div>
                   </div>
-                </div>
                 <button type="submit" class="btn btn-primary col-md-6" form="submit">Guardar</button>
               </form>
       </div>

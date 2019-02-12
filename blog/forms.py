@@ -9,16 +9,16 @@ class EmployeeForm(forms.Form):
 	lastName_1 = forms.CharField(label='Apellido Paterno', max_length=100,
 		widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Pérez','type': 'text'}))
 
-	lastName_2 = forms.CharField(label='Apellido Materno', max_length=100,
+	lastName_2 = forms.CharField(label='Apellido Materno', max_length=100,required=False,
 		widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Camacho','type': 'text'}))
 	
 	country = forms.ChoiceField(choices=[('MX','MX'),('ES','ES')])
 		#widget=forms.TextInput(attrs={'class':'dropdown-menu'}))
 
-	email = forms.EmailField(label='Email',
+	email = forms.EmailField(label='Email',required=False,
 		widget=forms.TextInput(attrs={'class':'form-control','placeholder':'juanito@datiobd.com','type':'email'}))
 
-	role = forms.CharField(label='Área', max_length=100,
+	role = forms.CharField(label='Área', max_length=100,required=False,
 		widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Deployment'}))
 
 	percentage = forms.FloatField(label='Porcentaje',widget=forms.TextInput(attrs={'class': 'form-control','placeholder':'0.4'}))
@@ -38,5 +38,11 @@ class ProjectForm(forms.Form):
 	typeProject = forms.CharField(label='Tipo',max_length=10,
 		widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'IN'}))
 
-	ftes = forms.CharField(label='FTES',max_length=50,
-		widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Deployment'}))
+	ftes = forms.ChoiceField(label='FTES')
+
+
+
+#FtesForm
+class FtesForm(forms.Form):
+	ftes = forms.CharField(label='Ftes',max_length=100,
+		widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Deployment'}))
