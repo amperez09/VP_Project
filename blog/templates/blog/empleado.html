@@ -56,31 +56,30 @@
                     <th scope="col">Nombre</th>
                     <th scope="col">Apellido Paterno</th>
                     <th scope="col">Apellido Materno</th>
-                    <th scope="col">Ckeck</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">País</th>
+                    <th scope="col">Área</th>
+                    <th scope="col">Activo/Inactivo</th>
+                    <th scope="col">Check</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>Perez</td>
-                    <td><input class="form-check-input position-static" type="checkbox" id="check1" value="option1"></td>
-
-                  </tr>
-                  <tr>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td><input class="form-check-input position-static" type="checkbox" id="check1" value="option1"></td>
-
-                  </tr>
-                  <tr>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                    <td><input class="form-check-input position-static" type="checkbox" id="check1" value="option1"></td>
-
-                  </tr>
+                  {% for emp in empl %}
+                    <tr>
+                      <td>{{ emp.1 }}</td>
+                      <td>{{ emp.2 }}</td>
+                      <td>{{ emp.3 }}</td>
+                      <td>{{ emp.5 }}</td>
+                      <td>{{ emp.4 }}</td>
+                      <td>{{ emp.6 }}</td>
+                      {% if emp.7 == 1%}
+                        <td>Activo</td>
+                      {% else %}
+                        <td>Inactivo</td>
+                      {% endif %}
+                      <td><input class="form-check-input position-static" type="checkbox" id="check1" value="option1"></td>
+                    </tr>
+                  {% endfor %}
                 </tbody>
               </table>
               <div class="btn-group" role="group" aria-label="Basic example">

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import EmployeeForm,ProjectForm,FtesForm
+from .forms import EmployeeForm,ProjectForm,FtesForm,BitacoraForm
 from .models import Empleado,Proyecto,Ftes,Periodo,Bitacora
 # Create your views here.
 
@@ -39,6 +39,15 @@ def add_empleado(request):
 		form = EmployeeForm()
 
 	return render(request, 'blog/add_empleado.html', {'form': form})
+
+#Remove employee
+def rm_empleado(request):
+	#if request.method == 'POST':
+	return render(request, 'blog/rm_empleado.html')
+
+
+
+
 
 #Add project
 def add_proyecto(request):
@@ -104,10 +113,19 @@ def add_ftes(request):
 	return render(request, 'blog/add_ftes.html', {'form': form})
 
 def empleado(request):
-	return render(request,'blog/empleado.html',{})
+	if request.method == 'GET':
+	
+		empl=list(Empleado.objects.all().values_list('idEmpleado','nombre', 
+			'apPaterno','apMaterno','pais','mail','area','activo').order_by('nombre'))
+	
+		return render(request,'blog/empleado.html',{'empl': empl})
 
 def proyecto(request):
-	return render(request,'blog/proyecto.html',{})
+	if request.method == 'GET':
+		project = list(Proyecto.objects.all().values_list('codigo','tipo','nombre',
+			'activo','nombreFtes_id').order_by('nombre'))
+		print(project)
+		return render(request,'blog/proyecto.html',{'project': project})
 
 def mod_proyecto(request):
 	# if this is a POST request we need to process the form data
@@ -152,4 +170,9 @@ def mod_empleado(request):
 	return render(request, 'blog/mod_empleado.html', {'form': form})
 
 def reporte_general(request):
-	return render(request,'blog/reporte_general.html',{})
+	if request.method == 'GET':
+		print("-------------------------raw")
+		bitacora = Bitacora.objects.select_related('idEmpleado', 'codigo', 'clavePeriodo').filter(clavePeriodo=201812)
+		form = BitacoraForm()
+
+		return render(request,'blog/reporte_general.html',{'bitacora': bitacora, 'form':form})

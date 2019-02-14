@@ -41,8 +41,47 @@ class ProjectForm(forms.Form):
 	ftes = forms.ChoiceField(label='FTES')
 
 
-
 #FtesForm
 class FtesForm(forms.Form):
 	ftes = forms.CharField(label='Ftes',max_length=100,
 		widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Deployment'}))
+
+#BitacoraForm
+class BitacoraForm(forms.Form):
+
+	idEmployee = forms.IntegerField()
+
+	firstName = forms.CharField(max_length=100, 
+		widget=forms.TextInput(attrs={'class':'form-control','readonly':'readonly','type': 'text'}))
+
+	lastName_1 = forms.CharField(max_length=100,
+		widget=forms.TextInput(attrs={'class':'form-control','readonly':'readonly','type': 'text'}))
+
+	lastName_2 = forms.CharField(max_length=100,required=False,
+		widget=forms.TextInput(attrs={'class':'form-control','readonly':'readonly','type': 'text'}))
+
+	codeProject = forms.CharField(max_length=50,
+		widget=forms.TextInput(attrs={'class':'form-control','readonly':'readonly','type': 'text'}))
+
+	nameProject = forms.CharField(max_length=100,
+		widget=forms.TextInput(attrs={'class':'form-control','readonly':'readonly','type': 'text','width':'18px'}))
+	
+	ftes = forms.CharField(max_length=100,
+		widget=forms.TextInput(attrs={'class':'form-control','readonly':'readonly','type': 'text'}))
+	
+	hourWork = forms.CharField(max_length=10,
+		widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+	hourVacation =  forms.CharField(max_length=10,
+		widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+	hourSick = forms.CharField(max_length=10,
+		widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+	hourSpecial = forms.CharField(max_length=10,
+		widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+	notes = forms.CharField(max_length=300,
+		widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+	 

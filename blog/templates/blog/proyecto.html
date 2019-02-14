@@ -53,38 +53,30 @@
         <table class="table">
               <thead class="thead-dark">
                 <tr>
-                  <th scope="col">Codigo</th>
-                  <th scope="col">Tipo</th>
                   <th scope="col">Nombre</th>
+                  <th scope="col">Tipo</th>
+                  <th scope="col">Codigo</th>
                   <th scope="col">FTES</th>
+                  <th scope="col">Activo/Inactivo</th>
                   <th scope="col">Check</th>
                 </tr>
               </thead>
               <tbody>
+                {% for pro in project%}
+                  <tr>
+                    <td>{{ pro.2 }}</td>
+                    <td>{{ pro.1 }}</td>
+                    <td>{{ pro.0 }}</td>
+                    <td>{{ pro.4 }}</td>
+                    {% if pro.3 == 1%}
+                      <td>Activo</td>
+                    {% else %}
+                      <td>Inactivo</td>
+                    {% endif %}
+                    <td><input class="form-check-input position-static" type="checkbox" id="check1" value="option1"></td>
+                  </tr>
+                  {% endfor %}
                 <tr>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>Perez</td>
-                  <td>Perez</td>
-                  <td><input class="form-check-input position-static" type="checkbox" id="check1" value="option1"></td>
-
-                </tr>
-                <tr>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                  <td>Perez</td>
-                  <td><input class="form-check-input position-static" type="checkbox" id="check1" value="option1"></td>
-
-                </tr>
-                <tr>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
-                  <td>Perez</td>
-                  <td><input class="form-check-input position-static" type="checkbox" id="check1" value="option1"></td>
-
-                </tr>
               </tbody>
             </table>
             <div class="btn-group" role="group" aria-label="Basic example">
