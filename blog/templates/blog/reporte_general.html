@@ -47,15 +47,17 @@
       <br>
       <div class="container">
         <h1>Proyectos</h1>
+        {% load widget_tweaks %}
+        {% csrf_token %}
         <table class="table">
-              <div class="form-group col-md-4">
-                <label for="inputState">Dias festivos</label>
-                <select id="inputState" class="form-control">
-                  <option selected>--Seleccionar--</option>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                </select>
+          <form action="/add_ftes/" method="POST"  id="submit" class="row">
+              <div class="form-group col-md-2">
+                <label for="inputState">Días festivos</label>
+                {% render_field form.holiday class="form-control" %}
+              </div>
+              <div class="form-group col-md-2">
+                <label for="inputState">Periodo</label>
+                {% render_field form.timeLapse class="form-control" %}
               </div>
               <thead class="thead-dark">
                 <tr style="width:20px; height:50px; margin:0 auto; font-size:14px">
@@ -66,29 +68,29 @@
                   <th scope="col">Nombre de <br>Proyecto</th>
                   <th scope="col">FTES</th>
                   <th scope="col">Horas <br>laborales</th>
+                  <th scope="col">Horas <br>porcentaje</th>
                   <th scope="col">Horas de <br>vacaciones</th>
                   <th scope="col">Horas de <br>enfermedad</th>
                   <th scope="col">Horas <br>especiales</th>
                   <th scope="col">Observaciones</th>
               </thead>
               <tbody>
-                <form action="/add_ftes/" method="POST"  id="submit" class="row">
 
-                  {% for bit in bitacora%}
-                    {% load widget_tweaks %}
-                    {% csrf_token %}
+                  {% for bit in bitacora %}
                     <tr>
+
                       <td>{% render_field form.firstName style="font-size:10px;" value=bit.idEmpleado.nombre %}</td>
                       <td>{% render_field form.lastName_1 style="font-size:10px;" value=bit.idEmpleado.apPaterno %}</td>
                       <td>{% render_field form.lastName_2 style="font-size:10px;" value=bit.idEmpleado.apMaterno %}</td>
                       <td>{% render_field form.codeProject style="font-size:10px;" value=bit.codigo.codigo %}</td>
                       <td>{% render_field form.nameProject style="font-size:10px;" value=bit.codigo.nombre %}</td>
                       <td>{% render_field form.ftes style="font-size:10px;" value=bit.codigo.nombreFtes_id %}</td>
-                      <td><input class="form-control form-control-sm" type="text" placeholder="0" id="horasL" value="{{ bit.horasLaborables}}"></td>
-                      <td><input class="form-control form-control-sm" type="text" placeholder="0" id="horasV"></td>
-                      <td><input class="form-control form-control-sm" type="text" placeholder="0" id="horasEn"></td>
-                      <td><input class="form-control form-control-sm" type="text" placeholder="0" id="horasEs"></td>
-                      <td><input class="form-control form-control-sm" type="text" placeholder="0" id="Obs"></td>
+                      <td>{% render_field form.hourWork style="font-size:10px;" value=bit.horasLaborables %}</td>
+                      <td>{% render_field form.percentage style="font-size:10px;" value=bit.horasPorcentaje %}</td>
+                      <td>{% render_field form.hourVacation style="font-size:10px;" value=bit.horasVacaciones %}</td>
+                      <td>{% render_field form.hourSick style="font-size:10px;" value=bit.horasEnfermedad %}</td>
+                      <td>{% render_field form.hourSpecial style="font-size:10px;" value=bit.horasEspeciales %}</td>
+                      <td>{% render_field form.notes style="font-size:10px;" value=bit.observaciones %}</td>
 
                     </tr>
                   {% endfor %}

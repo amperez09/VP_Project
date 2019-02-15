@@ -84,4 +84,13 @@ class BitacoraForm(forms.Form):
 	notes = forms.CharField(max_length=300,
 		widget=forms.TextInput(attrs={'class': 'form-control'}))
 
-	 
+	percentage = forms.FloatField(
+		widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+	holiday = forms.ChoiceField(choices=[(0,'0'),(1,'1'),(2,'2'),
+		(3,'3'),(4,'4')],required=True,widget=forms.TextInput(
+			attrs={'placeholder':'Días festivos'}))
+
+	timeLapse = forms.ChoiceField(widget=forms.TextInput(attrs={'placeholder':'Periodo'}))
+
+
