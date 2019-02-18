@@ -172,13 +172,15 @@ def mod_empleado(request):
 def reporte_general(request):
 	if request.method == 'GET':
 		form = BitacoraForm()
-
+		print('reporte GET')
 		return render(request,'blog/reporte_general.html',{'form':form})
 
 
 	elif request.method == 'POST':
-		clavePeriodo = request.POST['timeLapse']
-		bitacora = Bitacora.objects.select_related('idEmpleado', 'codigo', 'clavePeriodo').filter(clavePeriodo=clavePeriodo)
+		timeLapse = request.POST['timeLapse']
+		print(request.POST)
+		print('reporte POST')
+		bitacora = Bitacora.objects.select_related('idEmpleado', 'codigo', 'clavePeriodo').filter(clavePeriodo=timeLapse)
 		form = BitacoraForm()
 
 		return render(request,'blog/reporte_general.html',{'bitacora': bitacora, 'form':form, 'timeLapse':timeLapse})
@@ -187,6 +189,7 @@ def reporte_general(request):
 def guardar_reporte(request):
 	if request.method == 'POST':
 		form = BitacoraForm(request.POST)
+		print('POST guardar reporte')
 		# check whether it's valid:
 		if form.is_valid():
 
@@ -208,9 +211,12 @@ def guardar_reporte(request):
 
 			# process the data in form.cleaned_data as required
 			# ...
-			bitacora = Bitacora(idEmpleado=idEmployee,codigo=codeProject,)
+			bitacora = Bitacora(idEmpleado=idEmployee,codigo=codeProject,clavePeriodo=timeLapse,
+				horasLaborables=hourWork,horasVacaciones=hourVacation,horasEnfermedad=hourSick,
+				horasEspeciales=hourSpecial,horasPorcentaje=percentage,observaciones=notes)
 			bitacora.save()
 			# redirect to a new URL:
 			#return HttpResponseRedirect('/thanks/')
+			print('reporte guardado')
 			print(request.POST)
 			return render(request, 'blog/reporte_general.html')

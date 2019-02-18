@@ -47,10 +47,13 @@
       <br>
       <div class="container">
         <h1>Proyectos</h1>
+        <form action="/reporte_general/" method="POST"  id="submit" class="row">
         {% load widget_tweaks %}
         {% csrf_token %}
+        
         <table class="table">
-          <form action="/add_ftes/" method="POST"  id="submit" class="row">
+        
+
               <div class="form-group col-md-2">
                 <label for="inputState">Días festivos</label>
                 {% render_field form.holiday class="form-control" %}
@@ -77,8 +80,9 @@
               <tbody>
 
                   {% for bit in bitacora %}
-                    <tr>
 
+                    <tr>
+                      {% render_field form.idEmployee style="display:none;" value=bit.idEmpleado.idEmpleado %}
                       <td>{% render_field form.firstName style="font-size:10px;" value=bit.idEmpleado.nombre %}</td>
                       <td>{% render_field form.lastName_1 style="font-size:10px;" value=bit.idEmpleado.apPaterno %}</td>
                       <td>{% render_field form.lastName_2 style="font-size:10px;" value=bit.idEmpleado.apMaterno %}</td>
@@ -95,11 +99,14 @@
                     </tr>
                   {% endfor %}
               </tbody>
-            </form>
+              
             </table>
             <div class="btn-group" role="group" aria-label="Basic example">
-                  <button type="button" class="btn btn-primary">Guardar</button>
-           </div>
+                  <button type="submit" class="btn btn-primary" form="submit">Guardar</button>
+                  </div>
+            </form>
+            
+           
             
 
             
