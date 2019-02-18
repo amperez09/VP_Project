@@ -8,7 +8,54 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
+
     <title>INFORME IMPUTA</title>
+    <style type="text/css">
+
+
+    .tableReporte{
+        border-radius: 10px 10px 10px 10px;
+        overflow: auto;
+    }
+
+
+    .tableReporte th{
+
+        background-color: #2B007E;
+        color:white;
+        font-family: -apple-system,BlinkMacSystemFont,
+                "Segoe UI",Roboto,"Helvetica Neue",Arial,
+                "Noto Sans",sans-serif,"Apple Color Emoji",
+                "Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+
+    }
+
+    .inputTransparent{
+        border:0px;
+        background-color:transparent;
+        font-size:10px;
+        color:currentColor;
+
+    }
+
+    .inputHora{
+        height: 18px;
+        font-size:13px;
+        border:1px;
+        color:white;
+        width: 45px;
+    }
+
+    .inputComentario{
+        height: 18px;
+        font-size:13px;
+        border:1px;
+        color:white;
+        width: 145px;
+    }
+
+    </style>
+
   </head>
   <body>
       <!--Header-->
@@ -36,7 +83,8 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="/reporte_general/">General</a>
-                <a class="dropdown-item" href="#">Proyecto</a>   
+                <a class="dropdown-item" href="#">Proyecto</a>
+              </div>
             </li>
           </ul>
         </div>
@@ -47,7 +95,7 @@
       <br>
       <div class="container">
         <h1>Proyectos</h1>
-        <table class="table">
+        <table class="tableReporte">
               <div class="form-group col-md-4">
                 <label for="inputState">Dias festivos</label>
                 <select id="inputState" class="form-control">
@@ -59,10 +107,10 @@
               </div>
               <thead class="thead-dark">
                 <tr style="width:20px; height:50px; margin:0 auto; font-size:14px">
-                  <th scope="col">Nombre</th>
-                  <th scope="col">Apellido <br> Materno</th>
+                  <th scope="col" >Nombre</th>
                   <th scope="col">Apellido <br>Paterno</th>
-                  <th scope="col">Codigo de <br>Proyecto</th>
+                  <th scope="col">Apellido <br> Materno</th>
+                  <th scope="col" >Codigo de <br>Proyecto</th>
                   <th scope="col">Nombre de <br>Proyecto</th>
                   <th scope="col">FTES</th>
                   <th scope="col">Horas <br>laborales</th>
@@ -77,30 +125,35 @@
                   {% for bit in bitacora%}
                     {% load widget_tweaks %}
                     {% csrf_token %}
-                    <tr>
-                      <td>{% render_field form.firstName style="font-size:10px;" value=bit.idEmpleado.nombre %}</td>
-                      <td>{% render_field form.lastName_1 style="font-size:10px;" value=bit.idEmpleado.apPaterno %}</td>
-                      <td>{% render_field form.lastName_2 style="font-size:10px;" value=bit.idEmpleado.apMaterno %}</td>
-                      <td>{% render_field form.codeProject style="font-size:10px;" value=bit.codigo.codigo %}</td>
-                      <td>{% render_field form.nameProject style="font-size:10px;" value=bit.codigo.nombre %}</td>
-                      <td>{% render_field form.ftes style="font-size:10px;" value=bit.codigo.nombreFtes_id %}</td>
-                      <td><input class="form-control form-control-sm" type="text" placeholder="0" id="horasL" value="{{ bit.horasLaborables}}"></td>
-                      <td><input class="form-control form-control-sm" type="text" placeholder="0" id="horasV"></td>
-                      <td><input class="form-control form-control-sm" type="text" placeholder="0" id="horasEn"></td>
-                      <td><input class="form-control form-control-sm" type="text" placeholder="0" id="horasEs"></td>
-                      <td><input class="form-control form-control-sm" type="text" placeholder="0" id="Obs"></td>
+
+                    <tr {% if forloop.counter|divisibleby:2   %}
+                        style="background-color:#B7B8B6; height: 36px;"
+                        {%else%}style="background-color: #008ed6; height: 36px; color:white;"{%endif%}\n>
+                      <td>{% render_field form.firstName  class="inputTransparent" value=bit.idEmpleado.nombre %}</td>
+                      <td>{% render_field form.lastName_1  class="inputTransparent" value=bit.idEmpleado.apPaterno %}</td>
+                      <td>{% render_field form.lastName_2  class="inputTransparent" value=bit.idEmpleado.apMaterno %}</td>
+                      <td>{% render_field form.codeProject style="width:80px;" class="inputTransparent" value=bit.codigo.codigo %}</td>
+                      <td>{% render_field form.nameProject style="width:140px;" class="inputTransparent" value=bit.codigo.nombre %}</td>
+                      <td>{% render_field form.ftes style="width:80px;" class="inputTransparent" value=bit.codigo.nombreFtes_id %}</td>
+                      <td><input class="form-control form-control-sm inputHora" type="text" placeholder="0" id="horasL" style="color:black;" value="{{ bit.horasLaborables}}"></td>
+                      <td><input class="form-control form-control-sm inputHora" type="text" placeholder="0" id="horasV" style="color:black;" ></td>
+                      <td><input class="form-control form-control-sm inputHora" type="text" placeholder="0" id="horasEn" style="color:black;"></td>
+                      <td><input class="form-control form-control-sm inputHora" type="text" placeholder="0" id="horasEs" style="color:black;"></td>
+                      <td><input class="form-control form-control-sm inputComentario" type="text" placeholder="0" id="Obs" style="color:black;"></td>
 
                     </tr>
+
                   {% endfor %}
+
+              </form>
               </tbody>
-            </form>
             </table>
             <div class="btn-group" role="group" aria-label="Basic example">
                   <button type="button" class="btn btn-primary">Guardar</button>
            </div>
-            
 
-            
+
+
       </div>
 
     <!-- Optional JavaScript -->
