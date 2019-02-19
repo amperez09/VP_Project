@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import EmployeeForm,ProjectForm,FtesForm,BitacoraForm
+from .forms import EmployeeForm,ProjectForm,FtesForm,BitacoraForm,TimeLapseForm
 from .models import Empleado,Proyecto,Ftes,Periodo,Bitacora
 # Create your views here.
 
@@ -171,7 +171,7 @@ def mod_empleado(request):
 
 def reporte_general(request):
 	if request.method == 'GET':
-		form = BitacoraForm()
+		form = TimeLapseForm()
 		print('reporte GET')
 		return render(request,'blog/reporte_general.html',{'form':form})
 
@@ -180,10 +180,13 @@ def reporte_general(request):
 		timeLapse = request.POST['timeLapse']
 		print(request.POST)
 		print('reporte POST')
-		bitacora = Bitacora.objects.select_related('idEmpleado', 'codigo', 'clavePeriodo').filter(clavePeriodo=timeLapse)
+		bitacora = list(Bitacora.objects.select_related('idEmpleado', 'codigo', 'clavePeriodo').filter(clavePeriodo=timeLapse))
 		form = BitacoraForm()
-
-		return render(request,'blog/reporte_general.html',{'bitacora': bitacora, 'form':form, 'timeLapse':timeLapse})
+		empty = False
+		if len(bitacora) == 0:
+			empty = True
+		form.fields['holiday'].initial = bitacora[0].clavePeriodo.horasNoLaborables
+		return render(request,'blog/reporte_general.html',{'bitacora': bitacora, 'form':form, 'timeLapse':timeLapse, 'empty':empty})
 
 
 def guardar_reporte(request):
