@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import EmployeeForm,ProjectForm,FtesForm,BitacoraForm
+from .forms import EmployeeForm,ProjectForm,FtesForm,BitacoraForm,TimeLapseForm
 from .models import Empleado,Proyecto,Ftes,Periodo,Bitacora
 # Create your views here.
 
@@ -171,8 +171,55 @@ def mod_empleado(request):
 
 def reporte_general(request):
 	if request.method == 'GET':
-		print("-------------------------raw")
-		bitacora = Bitacora.objects.select_related('idEmpleado', 'codigo', 'clavePeriodo').filter(clavePeriodo=201812)
-		form = BitacoraForm()
+		form = TimeLapseForm()
+		print('reporte GET')
+		return render(request,'blog/reporte_general.html',{'form':form})
 
-		return render(request,'blog/reporte_general.html',{'bitacora': bitacora, 'form':form})
+
+	elif request.method == 'POST':
+		timeLapse = request.POST['timeLapse']
+		print(request.POST)
+		print('reporte POST')
+		bitacora = list(Bitacora.objects.select_related('idEmpleado', 'codigo', 'clavePeriodo').filter(clavePeriodo=timeLapse))
+		form = BitacoraForm()
+		empty = False
+		if len(bitacora) == 0:
+			empty = True
+		form.fields['holiday'].initial = bitacora[0].clavePeriodo.horasNoLaborables
+		return render(request,'blog/reporte_general.html',{'bitacora': bitacora, 'form':form, 'timeLapse':timeLapse, 'empty':empty})
+
+
+def guardar_reporte(request):
+	if request.method == 'POST':
+		form = BitacoraForm(request.POST)
+		print('POST guardar reporte')
+		# check whether it's valid:
+		if form.is_valid():
+
+			idEmployee = request.POST['idEmployee']
+			firstName = request.POST['firstName']
+			lastName_1 = request.POST['lastName_1']
+			lastName_2 = request.POST['lastName_2']
+			codeProject = request.POST['codeProject']
+			nameProject = request.POST['nameProject']
+			ftes = request.POST['ftes']
+			hourWork = request.POST['hourWork']
+			hourVacation = request.POST['hourVacation']
+			hourSick = request.POST['hourSick']
+			hourSpecial = request.POST['hourSpecial']
+			notes = request.POST['notes']
+			percentage = request.POST['percentage']
+			holiday = request.POST['holiday']
+			timeLapse = request.POST['timeLapse']
+
+			# process the data in form.cleaned_data as required
+			# ...
+			bitacora = Bitacora(idEmpleado=idEmployee,codigo=codeProject,clavePeriodo=timeLapse,
+				horasLaborables=hourWork,horasVacaciones=hourVacation,horasEnfermedad=hourSick,
+				horasEspeciales=hourSpecial,horasPorcentaje=percentage,observaciones=notes)
+			bitacora.save()
+			# redirect to a new URL:
+			#return HttpResponseRedirect('/thanks/')
+			print('reporte guardado')
+			print(request.POST)
+			return render(request, 'blog/reporte_general.html')

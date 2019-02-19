@@ -95,25 +95,40 @@
       <br>
       <div class="container">
         <h1>Proyectos</h1>
+        <form action="/reporte_general/" method="POST"  id="submit" class="row">
+        {% load widget_tweaks %}
+        {% csrf_token %}
+        
         <table class="tableReporte">
-              <div class="form-group col-md-4">
-                <label for="inputState">Dias festivos</label>
-                <select id="inputState" class="form-control">
-                  <option selected>--Seleccionar--</option>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                </select>
+        
+
+              <div class="form-group col-md-2">
+                <label for="inputState">Horas no laborables</label>
+                {% if empty %}
+                  {% render_field form.holiday class="form-control" %}
+                {% else%}
+                  {% render_field form.holiday class="form-control" value=bitacora.0.clavePeriodo.horasNoLaborables %}
+                {% endif %}
               </div>
+              <div class="form-group col-md-2">
+                <label for="inputState">Periodo</label>
+                {% if empty %}
+                  {% render_field form.timeLapse class="form-control" %}
+                {% else %}
+                  {% render_field form.timeLapse class="form-control" value=bitacora.0.clavePeriodo %}
+                {% endif %}
+
+          </div>
               <thead class="thead-dark">
                 <tr style="width:20px; height:50px; margin:0 auto; font-size:14px">
                   <th scope="col" >Nombre</th>
                   <th scope="col">Apellido <br>Paterno</th>
                   <th scope="col">Apellido <br> Materno</th>
-                  <th scope="col" >Codigo de <br>Proyecto</th>
+                  <th scope="col">Código de <br>Proyecto</th>
                   <th scope="col">Nombre de <br>Proyecto</th>
                   <th scope="col">FTES</th>
                   <th scope="col">Horas <br>laborales</th>
+                  <th scope="col">Horas <br>porcentaje</th>
                   <th scope="col">Horas de <br>vacaciones</th>
                   <th scope="col">Horas de <br>enfermedad</th>
                   <th scope="col">Horas <br>especiales</th>
@@ -125,36 +140,46 @@
                 {% csrf_token %}
                 {% for bit in bitacora%}
 
-
-
                     <tr {% if forloop.counter|divisibleby:2   %}
                         style="background-color:#B7B8B6; height: 36px;"
                         {%else%}style="background-color: #008ed6; height: 36px; color:white;"{%endif%}\n>
-                      <td>{% render_field form.firstName  class="inputTransparent" value=bit.idEmpleado.nombre %}</td>
-                      <td>{% render_field form.lastName_1  class="inputTransparent" value=bit.idEmpleado.apPaterno %}</td>
-                      <td>{% render_field form.lastName_2  class="inputTransparent" value=bit.idEmpleado.apMaterno %}</td>
-                      <td>{% render_field form.codeProject style="width:80px;" class="inputTransparent" value=bit.codigo.codigo %}</td>
-                      <td>{% render_field form.nameProject style="width:140px;" class="inputTransparent" value=bit.codigo.nombre %}</td>
-                      <td>{% render_field form.ftes style="width:80px;" class="inputTransparent" value=bit.codigo.nombreFtes_id %}</td>
-                      <td><input class="form-control form-control-sm inputHora" type="text" placeholder="0" id="horasL" style="color:black;" value="{{ bit.horasLaborables}}"></td>
-                      <td><input class="form-control form-control-sm inputHora" type="text" placeholder="0" id="horasV" style="color:black;" ></td>
-                      <td><input class="form-control form-control-sm inputHora" type="text" placeholder="0" id="horasEn" style="color:black;"></td>
-                      <td><input class="form-control form-control-sm inputHora" type="text" placeholder="0" id="horasEs" style="color:black;"></td>
-                      <td><input class="form-control form-control-sm inputComentario" type="text" placeholder="0" id="Obs" style="color:black;"></td>
 
+                      {% render_field form.idEmployee style="display:none;" value=bit.idEmpleado.idEmpleado %}
+
+                      <td>{% render_field form.firstName  class="inputTransparent"  value=bit.idEmpleado.nombre %}</td>
+                      
+                      <td>{% render_field form.lastName_1  class="inputTransparent"  value=bit.idEmpleado.apPaterno %}</td>
+                      
+                      <td>{% render_field form.lastName_2  class="inputTransparent"  value=bit.idEmpleado.apMaterno %}</td>
+                      
+                      <td>{% render_field form.codeProject  class="inputTransparent" style="width:80px;" value=bit.codigo.codigo %}</td>
+                      
+                      <td>{% render_field form.nameProject  class="inputTransparent" style="width:140px;" value=bit.codigo.nombre %}</td>
+                      
+                      <td>{% render_field form.ftes  class="inputTransparent" style="width:80px;" value=bit.codigo.nombreFtes_id %}</td>
+                      
+                      <td>{% render_field form.hourWork class="inputHora" value=bit.horasLaborables %}</td>
+                      
+                      <td>{% render_field form.percentage class="inputHora" value=bit.horasPorcentaje %}</td>
+                      
+                      <td>{% render_field form.hourVacation class="inputHora" onChange="refresh()" value=bit.horasVacaciones %}</td>
+                      
+                      <td>{% render_field form.hourSick class="inputHora" value=bit.horasEnfermedad %}</td>
+                      
+                      <td>{% render_field form.hourSpecial class="inputHora" value=bit.horasEspeciales %}</td>
+                      
+                      <td>{% render_field form.notes class="inputComentario" value=bit.observaciones %}</td>
                     </tr>
 
                   {% endfor %}
 
-              </form>
-              </tbody>
+
+              </tbody>            
             </table>
             <div class="btn-group" role="group" aria-label="Basic example">
-                  <button type="button" class="btn btn-primary">Guardar</button>
-           </div>
-
-
-
+                  <button type="submit" class="btn btn-primary" form="submit">Guardar</button>
+                  </div>
+            </form>
       </div>
 
     <!-- Optional JavaScript -->

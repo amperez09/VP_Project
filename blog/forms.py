@@ -46,6 +46,14 @@ class FtesForm(forms.Form):
 	ftes = forms.CharField(label='Ftes',max_length=100,
 		widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Deployment'}))
 
+#TimeLapseForm
+class TimeLapseForm(forms.Form):
+	holiday = forms.ChoiceField(choices=[(0,'0'),(8,'8'),(16,'16'),
+		(24,'24'),(32,'32')],required=True)
+
+	timeLapse = forms.ChoiceField(widget=forms.TextInput(attrs={'placeholder':'Periodo'}))
+
+
 #BitacoraForm
 class BitacoraForm(forms.Form):
 
@@ -84,4 +92,12 @@ class BitacoraForm(forms.Form):
 	notes = forms.CharField(max_length=300,
 		widget=forms.TextInput(attrs={'class': 'form-control'}))
 
-	 
+	percentage = forms.FloatField(
+		widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+	holiday = forms.ChoiceField(choices=[(0,'0'),(8,'8'),(16,'16'),
+		(24,'24'),(32,'32')],required=True)
+
+	timeLapse = forms.ChoiceField(widget=forms.TextInput(attrs={'placeholder':'Periodo'}))
+
+
