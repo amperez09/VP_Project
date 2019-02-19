@@ -16,6 +16,7 @@
     .tableReporte{
         border-radius: 10px 10px 10px 10px;
         overflow: auto;
+        width:100%;
     }
 
 
@@ -35,6 +36,7 @@
         background-color:transparent;
         font-size:10px;
         color:currentColor;
+        width: 90px;
 
     }
 
@@ -42,8 +44,9 @@
         height: 18px;
         font-size:13px;
         border:1px;
-        color:white;
+        color:black;
         width: 45px;
+        border-radius: 6px;
     }
 
     .inputComentario{
@@ -52,7 +55,10 @@
         border:1px;
         color:white;
         width: 145px;
+        border-radius: 6px;
     }
+
+    .top-buffer { margin-top:60px; }
 
     </style>
 
@@ -99,7 +105,7 @@
         {% load widget_tweaks %}
         {% csrf_token %}
         
-        <table class="tableReporte">
+
         
 
               <div class="form-group col-md-2">
@@ -117,10 +123,11 @@
                 {% else %}
                   {% render_field form.timeLapse class="form-control" value=bitacora.0.clavePeriodo %}
                 {% endif %}
+              </div>
+            <table class="tableReporte">
 
-          </div>
               <thead class="thead-dark">
-                <tr style="width:20px; height:50px; margin:0 auto; font-size:14px">
+                <tr style="width:800px; height:50px; margin:0 auto; font-size:14px">
                   <th scope="col" >Nombre</th>
                   <th scope="col">Apellido <br>Paterno</th>
                   <th scope="col">Apellido <br> Materno</th>
@@ -135,9 +142,7 @@
                   <th scope="col">Observaciones</th>
               </thead>
               <tbody>
-                <form action="/add_ftes/" method="POST"  id="submit" class="row">
-                {% load widget_tweaks %}
-                {% csrf_token %}
+
                 {% for bit in bitacora%}
 
                     <tr {% if forloop.counter|divisibleby:2   %}
@@ -176,9 +181,14 @@
 
               </tbody>            
             </table>
-            <div class="btn-group" role="group" aria-label="Basic example">
+
+            <br>
+            <br>
+            <div class="row top-buffer">
+            <div class="btn-group form-group col-md-2" role="group" aria-label="Basic example">
                   <button type="submit" class="btn btn-primary" form="submit">Guardar</button>
                   </div>
+
             </form>
       </div>
 
