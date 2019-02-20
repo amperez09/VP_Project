@@ -101,3 +101,9 @@ class BitacoraForm(forms.Form):
 	timeLapse = forms.ChoiceField(widget=forms.TextInput(attrs={'placeholder':'Periodo'}))
 
 
+#Employee-project Form
+class EmployeeProjectForm(forms.Form):
+
+	employee = forms.ChoiceField(label='Empleados', required=True)
+
+	project = forms.ChoiceField(label='Proyectos', required=True)

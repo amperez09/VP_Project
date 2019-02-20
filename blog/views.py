@@ -173,6 +173,9 @@ def reporte_general(request):
 	if request.method == 'GET':
 		form = TimeLapseForm()
 		print('reporte GET')
+		empleados = Empleado.objects.values_list('idEmpleado','nombre','apPaterno','apMaterno')
+		proyectos = Proyecto.objects.values_list('codigo','nombre')
+		print(proyectos)
 		return render(request,'blog/reporte_general.html',{'form':form})
 
 
