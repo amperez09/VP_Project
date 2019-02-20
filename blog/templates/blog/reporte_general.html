@@ -192,6 +192,31 @@
             </form>
       </div>
 
+      <!--start new tag modal needs functionality-->
+      <div id="new-tag" class="modal">
+        <form action="/saveTags/{{ user }}/{{ task }}/" method="POST">
+        <!--form action="/createTags/{{ user }}/{{ task }}/"-->
+          <div class="modal-content">
+            <h4 class="pollstrblue-text center">Create new label for <span class="pollstrgreen-text">{{ task }}</span></h4>
+            <div class="divider"></div>
+              {{ form.tag_name.label }}{{ form.tag_name }}
+              <!--input id="tag_name" type="text" class="validate"-->
+              <!--label for="tag_name">Please enter a name for your tag</label-->
+              {{ form.tag_desc.label }}{{ form.tag_desc }}
+              <!--input id="tag_desc" type="text" class="validate"-->
+              <!--label for="tag_desc">Enter a description for the tag</label-->
+          </div>
+          <div class="modal-footer">
+            <button class="btn waves-effect waves-light pollstrblue" type="submit" name="action">
+              Save
+              <i class="material-icons right">save</i>
+            </button>
+          </div>
+        </form>
+      </div>
+      <!--end new tag modal-->
+
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

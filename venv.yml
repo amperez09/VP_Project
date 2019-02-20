@@ -21,8 +21,11 @@ dependencies:
   - zlib=1.2.11=h7b6447c_3
   - pip:
     - django==2.1.5
+    - django-crispy-forms==1.7.2
+    - django-widget-tweaks==1.4.3
     - jinja2==2.10
     - markupsafe==1.1.0
+    - mysqlclient==1.4.2
     - pytz==2018.9
-prefix: /home/amperez/miniconda3/envs/venv
+prefix: /home/jocamach/miniconda3/envs/venv
 
